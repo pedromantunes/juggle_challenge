@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: juggle
+      POSTGRES_DB: juggle
+      POSTGRES_PASSWORD: juggle
+    volumes:
+      - pgdata:/var/lib/posgresql/data
+  juggle_challenge:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      JUGGLE_DATABASE_HOST: db
+    volumes:
+      - ./juggle_challenge:/juggle_challenge
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+volumes:
+  pgdata:

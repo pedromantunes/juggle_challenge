@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euo pipefail
+
+
+main() {
+    local project="$1"
+
+    docker exec juggle_juggle_challenge_1 python -m ${project}.smoke
+}
+
+main "$@"
